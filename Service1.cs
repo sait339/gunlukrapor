@@ -29,7 +29,6 @@ namespace gunlukrapor
             RaporAl();
             timer.Interval = 10000;
             timer.Enabled = true;
-
         }
 
         protected override void OnStop()
