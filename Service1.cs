@@ -21,7 +21,6 @@ namespace gunlukrapor
         SqlConnection baglanti = new SqlConnection("Data Source=HPSERVER\\ETA;Initial Catalog=ETA_MARKET_" + yil.ToString() +";user id=sa;password=eta_123456;");
         SqlConnection baglanti2 = new SqlConnection("Data Source=HPSERVER\\ETA;Initial Catalog=ETA_RAPORLAR_"+ yil.ToString() + ";user id=sa;password=eta_123456;");
         Timer timer = new Timer();
-        Timer timer2 = new Timer();
         public EnverServis()
         {
             InitializeComponent();
@@ -32,7 +31,6 @@ namespace gunlukrapor
             string saat = DateTime.Now.Hour.ToString();
             if (saat == "20")
             {
-                timer2.Enabled = false;
                 RaporAl();
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
                 timer.Interval = 3600000;
@@ -40,10 +38,8 @@ namespace gunlukrapor
             }
             else
             {
-                timer.Enabled=false;
-                timer2.Elapsed += new ElapsedEventHandler(OnElapsedTime2);
-                timer2.Interval = 3600000;
-                timer2.Enabled = true;
+                timer.Interval = 3600000;
+                timer.Enabled = true;
             }
         }
 
@@ -54,9 +50,6 @@ namespace gunlukrapor
         {
             yil = DateTime.Now.Year.ToString();
             RaporAl();
-        }
-        private void OnElapsedTime2(object source, ElapsedEventArgs e)
-        {
         }
 
         public void RaporAl()
