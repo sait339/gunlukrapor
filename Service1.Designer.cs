@@ -1,6 +1,6 @@
 ﻿namespace gunlukrapor
 {
-    partial class Service1
+    partial class EnverServis
     {
         /// <summary> 
         ///Gerekli tasarımcı değişkeni.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // EnverServis
+            // 
+            this.ServiceName = "EnverServis";
+
         }
 
         #endregion

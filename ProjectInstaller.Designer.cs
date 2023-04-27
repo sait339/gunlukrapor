@@ -41,7 +41,7 @@
             // 
             this.serviceInstaller1.Description = "Gunluk Rapor";
             this.serviceInstaller1.DisplayName = "EnverServis";
-            this.serviceInstaller1.ServiceName = "Service1";
+            this.serviceInstaller1.ServiceName = "EnverServis";
             // 
             // ProjectInstaller
             // 

@@ -17,7 +17,7 @@ namespace gunlukrapor
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new EnverServis()
             };
             ServiceBase.Run(ServicesToRun);
         }
