@@ -39,9 +39,11 @@
             // 
             // serviceInstaller1
             // 
+            this.serviceInstaller1.DelayedAutoStart = true;
             this.serviceInstaller1.Description = "Gunluk Rapor";
             this.serviceInstaller1.DisplayName = "EnverServis";
             this.serviceInstaller1.ServiceName = "EnverServis";
+            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 

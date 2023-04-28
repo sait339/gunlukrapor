@@ -30,18 +30,18 @@ namespace gunlukrapor
         {
             yil=DateTime.Now.Year.ToString();
             string saat = DateTime.Now.Hour.ToString();
-            if (saat == "9")
+            if (saat.Equals("10"))
             {
                 RaporAl();
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
                 timer.Interval = 10000;
-                LogTut("BAŞLADI Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
+                LogTut("BAŞLADI  |  Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
             }
             else
             {
-                timer.Elapsed += new ElapsedEventHandler(OnElapsedTime2);
+                timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
                 timer.Interval = 5000;
-                LogTut("BAŞLADI --Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+                LogTut("BAŞLADI  |  Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
             } 
             timer.Enabled = true;
         }
@@ -52,16 +52,22 @@ namespace gunlukrapor
         }
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
-            string saat = DateTime.Now.Hour.ToString();
             yil = DateTime.Now.Year.ToString();
-            RaporAl();
-            LogTut("DEVAM EDİYOR -- Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
-        }
-        private void OnElapsedTime2(object source, ElapsedEventArgs e)
-        {
             string saat = DateTime.Now.Hour.ToString();
-            yil = DateTime.Now.Year.ToString();
-            LogTut("DEVAM EDİYOR -- Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+            if (saat.Equals("10"))
+            {
+                RaporAl();
+                timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
+                timer.Interval = 10000;
+                LogTut("DEVAM EDİYOR  |  Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
+            }
+            else
+            {
+                timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
+                timer.Interval = 5000;
+                LogTut("DEVAM EDİYOR  |  Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+            }
+            timer.Enabled = true;
         }
 
         public void LogTut(string mesaj, string zaman)
@@ -76,14 +82,14 @@ namespace gunlukrapor
             {
                 using (StreamWriter sw = File.CreateText(textyolu))
                 {
-                    sw.WriteLine(zaman + "  -  " + mesaj);
+                    sw.WriteLine(zaman + "  |  " + mesaj);
                 }
             }
             else
             {
                 using (StreamWriter sw = File.AppendText(textyolu))
                 {
-                    sw.WriteLine(zaman + "  -  " + mesaj);
+                    sw.WriteLine(zaman + "  |  " + mesaj);
                 }
             }
         }
