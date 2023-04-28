@@ -30,25 +30,25 @@ namespace gunlukrapor
         {
             yil=DateTime.Now.Year.ToString();
             string saat = DateTime.Now.Hour.ToString();
-            if (saat.Equals("10"))
+            if (saat.Equals("20"))
             {
                 RaporAl();
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-                timer.Interval = 10000;
-                LogTut("BAŞLADI  |  Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
+                timer.Interval = 3600000;
+                LogTut("\nBAŞLADI  |  Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
             }
             else
             {
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-                timer.Interval = 5000;
-                LogTut("BAŞLADI  |  Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+                timer.Interval = 3600000;
+                LogTut("\nBAŞLADI  |  Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
             } 
             timer.Enabled = true;
         }
 
         protected override void OnStop()
         {
-            LogTut("Hizmet Durduruldu.", DateTime.Now.ToString());
+            LogTut("\nHizmet Durduruldu.", DateTime.Now.ToString());
         }
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
@@ -58,13 +58,13 @@ namespace gunlukrapor
             {
                 RaporAl();
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-                timer.Interval = 10000;
+                timer.Interval = 3600000;
                 LogTut("DEVAM EDİYOR  |  Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
             }
             else
             {
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-                timer.Interval = 5000;
+                timer.Interval = 3600000;
                 LogTut("DEVAM EDİYOR  |  Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
             }
             timer.Enabled = true;
