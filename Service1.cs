@@ -11,6 +11,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Timers;
+using System.IO;
 
 namespace gunlukrapor
 {
@@ -29,27 +30,62 @@ namespace gunlukrapor
         {
             yil=DateTime.Now.Year.ToString();
             string saat = DateTime.Now.Hour.ToString();
-            if (saat == "20")
+            if (saat == "9")
             {
                 RaporAl();
                 timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
-                timer.Interval = 3600000;
-                timer.Enabled = true;
+                timer.Interval = 10000;
+                LogTut("BAŞLADI Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
             }
             else
             {
-                timer.Interval = 3600000;
-                timer.Enabled = true;
-            }
+                timer.Elapsed += new ElapsedEventHandler(OnElapsedTime2);
+                timer.Interval = 5000;
+                LogTut("BAŞLADI --Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+            } 
+            timer.Enabled = true;
         }
 
         protected override void OnStop()
         {
+            LogTut("Hizmet Durduruldu.", DateTime.Now.ToString());
         }
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
+            string saat = DateTime.Now.Hour.ToString();
             yil = DateTime.Now.Year.ToString();
             RaporAl();
+            LogTut("DEVAM EDİYOR -- Günlük Rapor Alma Başarılı...", DateTime.Now.ToString());
+        }
+        private void OnElapsedTime2(object source, ElapsedEventArgs e)
+        {
+            string saat = DateTime.Now.Hour.ToString();
+            yil = DateTime.Now.Year.ToString();
+            LogTut("DEVAM EDİYOR -- Rapor Alınamadı Saat 20 değil...'" + saat + "'", DateTime.Now.ToString());
+        }
+
+        public void LogTut(string mesaj, string zaman)
+        {
+            string dosyayolu = AppDomain.CurrentDomain.BaseDirectory + "\\Logs";
+            string textyolu = AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\" + DateTime.Now.Date.ToString().Substring(0, 10) + ".txt";
+            if (!Directory.Exists(dosyayolu))
+            {
+                Directory.CreateDirectory(dosyayolu);
+            }
+            if (!File.Exists(textyolu))
+            {
+                using (StreamWriter sw = File.CreateText(textyolu))
+                {
+                    sw.WriteLine(zaman + "  -  " + mesaj);
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(textyolu))
+                {
+                    sw.WriteLine(zaman + "  -  " + mesaj);
+                }
+            }
         }
 
         public void RaporAl()
